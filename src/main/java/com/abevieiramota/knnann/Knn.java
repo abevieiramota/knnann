@@ -6,21 +6,25 @@ import java.util.Map;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
+import com.abevieiramota.knnann.distance.DistanceMetric;
+
 // brute force search
 public class Knn {
 
 	private int nNeighbors;
-	private DistanceMetric distanceMetric;
 	private double[][] trainX;
 	private int[] trainY;
+	private NearestNeighbors nearest;
+	private DistanceMetric distanceMetric;
 
-	public Knn(int nNeighbors, DistanceMetric distanceMetric) {
+	public Knn(int nNeighbors, NearestNeighbors nearest, DistanceMetric distanceMetric) {
 		this.nNeighbors = nNeighbors;
+		this.nearest = nearest;
 		this.distanceMetric = distanceMetric;
 	}
 
 	public void fit(double[][] x, int[] y) {
-		if(x.length < this.nNeighbors) {
+		if (x.length < this.nNeighbors) {
 			throw new IllegalArgumentException();
 		}
 		this.trainX = x;
@@ -29,7 +33,6 @@ public class Knn {
 
 	public int[] predict(double[][] ds) {
 		int[] labels = new int[ds.length];
-		// calcula distancias
 		for (int j = 0; j < ds.length; j++) {
 			labels[j] = predict(ds[j]);
 		}
@@ -38,32 +41,11 @@ public class Knn {
 	}
 
 	private int predict(double[] p) {
-		// calcula distancias
-		double[] distances = new double[trainX.length];
-		for (int i = 0; i < trainX.length; i++) {
-			distances[i] = this.distanceMetric.distance(this.trainX[i], p);
-		}
-
-		// calcula ordem dos neighbors 
-		int[] kNeighborsIndex = new int[this.nNeighbors];
-		for(int i = 0; i < kNeighborsIndex.length; i++) {
-			kNeighborsIndex[i] = 0;
-		}
-		for (int i = 0; i < kNeighborsIndex.length; i++) {
-			for (int j = 0; j < distances.length; j++) {
-				if (distances[kNeighborsIndex[i]] > distances[j]) {
-					kNeighborsIndex[i] = j;
-				}
-			}
-		}
-		// calcula label dos k neighbors
-		int[] kNeighborsLabels = new int[this.nNeighbors];
-		for (int i = 0; i < this.nNeighbors; i++) {
-			kNeighborsLabels[i] = this.trainY[kNeighborsIndex[i]];
-		}
+		int[] kNeighborsIndex = this.nearest.nNeighbors(this.nNeighbors, this.trainX, p, this.distanceMetric);
 
 		// conta o label para os k neighbors
-		Map<Integer, Long> groupByCount = Arrays.stream(kNeighborsLabels).boxed()
+		// TODO: ponto de alteração para weighted knn
+		Map<Integer, Long> groupByCount = Arrays.stream(kNeighborsIndex).map(i -> this.trainY[i]).boxed()
 				.collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
 
 		return Collections.max(groupByCount.entrySet(), (e1, e2) -> e1.getValue().compareTo(e2.getValue())).getKey();

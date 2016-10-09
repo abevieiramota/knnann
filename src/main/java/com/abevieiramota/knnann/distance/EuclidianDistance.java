@@ -1,6 +1,15 @@
-package com.abevieiramota.knnann;
+package com.abevieiramota.knnann.distance;
 
 class EuclidianDistance implements DistanceMetric {
+	
+	private static final EuclidianDistance INSTANCE = new EuclidianDistance();
+	
+	public static DistanceMetric instance() {
+		return INSTANCE;
+	}
+	
+	private EuclidianDistance() {
+	}
 	
 	@Override
 	public double distance(double[] x1, double[] x2) {
@@ -12,5 +21,10 @@ class EuclidianDistance implements DistanceMetric {
 			distance += Math.pow((x1[i] - x2[i]), 2D);
 		}
 		return Math.sqrt(distance);
+	}
+	
+	@Override
+	public String toString() {
+		return "Euclidian";
 	}
 }

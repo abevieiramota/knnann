@@ -6,6 +6,8 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
+import com.abevieiramota.knnann.distance.DistanceMetric;
+
 @RunWith(JUnit4.class)
 // TODO: parameterized
 public class TestKnn {
@@ -25,7 +27,7 @@ public class TestKnn {
 	 */
 	@Test
 	public void testInicial1() {
-		Knn knn = new Knn(3, new EuclidianDistance());
+		Knn knn = new Knn(3, KNearestNeighbors.instance(), DistanceMetric.getEuclidian());
 		double[][] X = { { 0D }, { 1D }, { 2D }, { 3D } };
 		int[] y = { 0, 0, 1, 1 };
 
@@ -36,7 +38,7 @@ public class TestKnn {
 
 	@Test
 	public void testInicial2() {
-		Knn knn = new Knn(2, new EuclidianDistance());
+		Knn knn = new Knn(2, KNearestNeighbors.instance(), DistanceMetric.getEuclidian());
 		double[][] X = { { 0D }, { 1D }, { 2D }, { 3D } };
 		int[] y = { 0, 0, 1, 1 };
 
@@ -46,10 +48,10 @@ public class TestKnn {
 
 		assertEquals(0, knn.predict(x)[0]);
 	}
-	
+
 	@Test
 	public void testInicial3() {
-		Knn knn = new Knn(2, new EuclidianDistance());
+		Knn knn = new Knn(2, KNearestNeighbors.instance(), DistanceMetric.getEuclidian());
 		double[][] X = { { 0D }, { 1D }, { 2D }, { 3D } };
 		int[] y = { 0, 0, 1, 1 };
 
@@ -62,7 +64,7 @@ public class TestKnn {
 
 	@Test(expected = IllegalArgumentException.class)
 	public void testNNeighborsGTTrainSize() {
-		Knn knn = new Knn(10, new EuclidianDistance());
+		Knn knn = new Knn(10, KNearestNeighbors.instance(), DistanceMetric.getEuclidian());
 		double[][] X = { { 0D }, { 1D }, { 2D }, { 3D } };
 		int[] y = { 0, 0, 1, 1 };
 
