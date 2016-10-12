@@ -1,4 +1,4 @@
-package com.abevieiramota.knnann;
+package com.abevieiramota.knnann.knn;
 
 import static org.junit.Assert.assertEquals;
 
@@ -6,7 +6,9 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
-import com.abevieiramota.knnann.distance.DistanceMetric;
+import com.abevieiramota.knnann.knn.KNearestNeighbors;
+import com.abevieiramota.knnann.knn.Knn;
+import com.abevieiramota.knnann.knn.distance.DistanceMetric;
 
 @RunWith(JUnit4.class)
 // TODO: parameterized

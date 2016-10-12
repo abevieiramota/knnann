@@ -1,4 +1,4 @@
-package com.abevieiramota.knnann;
+package com.abevieiramota.knnann.knn;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -6,7 +6,7 @@ import java.util.Map;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
-import com.abevieiramota.knnann.distance.DistanceMetric;
+import com.abevieiramota.knnann.knn.distance.DistanceMetric;
 
 // brute force search
 public class Knn {

@@ -1,6 +1,6 @@
-package com.abevieiramota.knnann;
+package com.abevieiramota.knnann.knn;
 
-import com.abevieiramota.knnann.distance.DistanceMetric;
+import com.abevieiramota.knnann.knn.distance.DistanceMetric;
 
 public class KNearestNeighbors implements NearestNeighbors {
 	

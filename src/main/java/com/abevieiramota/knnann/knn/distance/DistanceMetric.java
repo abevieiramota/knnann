@@ -1,4 +1,4 @@
-package com.abevieiramota.knnann.distance;
+package com.abevieiramota.knnann.knn.distance;
 
 public interface DistanceMetric {
 

@@ -1,4 +1,4 @@
-package com.abevieiramota.knnann;
+package com.abevieiramota.knnann.knn;
 
 import java.io.IOException;
 import java.net.URL;
@@ -18,7 +18,9 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
 
-import com.abevieiramota.knnann.distance.DistanceMetric;
+import com.abevieiramota.knnann.knn.KNearestNeighbors;
+import com.abevieiramota.knnann.knn.Knn;
+import com.abevieiramota.knnann.knn.distance.DistanceMetric;
 import com.google.common.base.Charsets;
 import com.google.common.base.Splitter;
 import com.google.common.collect.Lists;
